@@ -72,6 +72,8 @@ class Openjdk < Formula
     end
   end
 
+  patch :p0, :DATA
+
   def install
     boot_jdk = buildpath/"boot-jdk"
     resource("boot-jdk").stage boot_jdk
@@ -134,6 +136,7 @@ class Openjdk < Formula
     end
     if DevelopmentTools.clang_build_version <= 1399
       args << "--with-extra-cflags=-DVM_MEMORY_MALLOC_PROB_GUARD=VM_MEMORY_MALLOC_PGUARD"
+      args << "--with-extra-cxxflags=-DVM_MEMORY_MALLOC_PROB_GUARD=VM_MEMORY_MALLOC_PGUARD"
     end
 
     system "bash", "configure", *args
@@ -178,3 +181,16 @@ class Openjdk < Formula
     assert_match "Hello, world!", shell_output("#{bin}/java HelloWorld")
   end
 end
+
+__END__
+--- make/autoconf/flags-ldflags.m4.orig	2025-09-25 16:16:56.000000000 +0000
++++ make/autoconf/flags-ldflags.m4	2025-11-16 22:58:55.000000000 +0000
+@@ -100,7 +100,7 @@
+   if test "x$OPENJDK_TARGET_OS" = xmacosx && test "x$TOOLCHAIN_TYPE" = xclang; then
+     # FIXME: We should really generalize SET_SHARED_LIBRARY_ORIGIN instead.
+     OS_LDFLAGS_JVM_ONLY="-Wl,-rpath,@loader_path/. -Wl,-rpath,@loader_path/.."
+-    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN -Wl,-reproducible"
++    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN"
+   fi
+ 
+   # Setup debug level-dependent LDFLAGS
