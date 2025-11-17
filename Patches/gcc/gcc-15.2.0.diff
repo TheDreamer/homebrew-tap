@@ -1,0 +1,35 @@
+diff --git a/gcc/fortran/gfortran.texi b/gcc/fortran/gfortran.texi
+index 9632161..86ea894 100644
+--- a/gcc/fortran/gfortran.texi
++++ b/gcc/fortran/gfortran.texi
+@@ -1839,7 +1839,7 @@ in free form; and the @code{c$}, @code{*$} and @code{!$} sentinels
+ in fixed form, @command{gfortran} needs to be invoked with the
+ @option{-fopenmp} option.  This option also arranges for automatic linking
+ of the OpenMP runtime library.
+-@xref{,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
++@xref{Top,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
+ 
+ The OpenMP Fortran runtime library routines are provided both in a
+ form of a Fortran 90 module named @code{omp_lib} and in a form of
+@@ -1900,7 +1900,7 @@ sentinels in free form; and the @code{c$}, @code{*$} and @code{!$}
+ sentinels in fixed form, @command{gfortran} needs to be invoked with
+ the @option{-fopenacc} option.  This option also arranges for automatic
+ linking of the OpenACC runtime library.
+-@xref{,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
++@xref{Top,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
+ 
+ The OpenACC Fortran runtime library routines are provided both in a
+ form of a Fortran 90 module named @code{openacc} and in a form of a
+diff --git a/gcc/fortran/intrinsic.texi b/gcc/fortran/intrinsic.texi
+index 8c160e5..ec78451 100644
+--- a/gcc/fortran/intrinsic.texi
++++ b/gcc/fortran/intrinsic.texi
+@@ -14975,7 +14975,7 @@ Fortran 2008 and later
+ @node UINT
+ @section @code{UINT} -- Convert to @code{UNSIGNED} type
+ @fnindex UINT
+-@cindex, conversion, to unsigned
++@cindex conversion, to unsigned
+ 
+ @table @asis
+ @item @emph{Synopsis}:
