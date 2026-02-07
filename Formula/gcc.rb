@@ -11,14 +11,21 @@ class Gcc < Formula
 
     # Branch from the Darwin maintainer of GCC, with a few generic fixes and
     # Apple Silicon support, located at https://github.com/iains/gcc-14-branch
+    # Fix pthread_incomplete_struct_argument incorrectly applied on modern glibc
+    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118009
     patch do
+      on_linux do
+        url "https://gcc.gnu.org/cgit/gcc/patch/?id=ea2798892de373b14f9fc7ae8a0d820eaddca98c"
+        sha256 "9c0d8abe93398320b9c69a21d3925c131d45d850fc1c1620df7919464db04af8"
+      end
       on_macos do
-        url "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a0/Patches/gcc/gcc-15.1.0.diff"
+        url "https://raw.githubusercontent.com/TheDreamer/homebrew-tap/refs/heads/main/Patches/gcc/gcc-15.1.0.diff"
         sha256 "360fba75cd3ab840c2cd3b04207f745c418df44502298ab156db81d41edf3594"
       end
-    end
-    on_macos do
-      patch :DATA
+      on_macos do
+        url "https://raw.githubusercontent.com/TheDreamer/homebrew-tap/refs/heads/main/Patches/gcc/gcc-15.2.0.diff"
+        sha256 "0158323a62ccd705043d82233d85dd720e4f16cbf1d1a2c217c5bd3002bf6b7c"
+      end
     end
   end
 
@@ -30,14 +37,15 @@ class Gcc < Formula
   no_autobump! because: :requires_manual_review
 
   bottle do
-    sha256                               arm64_tahoe:   "e76be6aae85a3a541420be141c63e314444a7dfaaa5594778cf34b79eee81385"
-    sha256                               arm64_sequoia: "aef7b1f77984d6a599b4d5a4002d91b777debea49bdc429be9a0fc13cfd82974"
-    sha256                               arm64_sonoma:  "ae72dbd9b2ba010e956db687b36fee950190dfaa5e33299aedb61c50ec2ebccf"
-    sha256                               tahoe:         "bdb8459b23eb33ba9d503fa8effb6bb79ab59953d2643d5538e90d9ce95447b4"
-    sha256                               sequoia:       "1c6c40e6317501b4158402b3ddab8a138b5ddd7dcecfc661c28a49a95770b325"
-    sha256                               sonoma:        "9b8c47ed04d0dcee9c133ddef1861868252fa6263245fbc6a03ce1e147b0815d"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "714ff308f7f00d71d0d7122cd777f12185c1eafe21254b7033edd0e6a8fbaafc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eebab9738ff2c231ec19c5da5725a830d89322914f8aa84d58728c6b45f84a58"
+    rebuild 1
+    sha256                               arm64_tahoe:   "fc02178c5cd0224049ef6831571bf4f2cf279a3b04bc1db92abe7fbf262552b5"
+    sha256                               arm64_sequoia: "84c7ed0f564fe29dfff39b71d94a3d1aefeef2ee23f2f3fa4e3ca452e0707016"
+    sha256                               arm64_sonoma:  "f87cec14d9348ea0ee3c3fb33dacb7f197721604e63f1e9932c249a903e05b2e"
+    sha256                               tahoe:         "0b5b8e8a403bfb0d6fe3b9e2a70268d05bce47075c2999b17517d7c9371c0f11"
+    sha256                               sequoia:       "bdf9c9ef5439087645fc6dd859101dde4f58971d153c5392ab57eab87123f34a"
+    sha256                               sonoma:        "eec8e0760f069a2281dae4d05d75825af4f0ab832ee6b8c4cbbeb8770bd9c993"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "90f1da133c403ea9d3a710fa86e9eedfb4f26add27ed4c8d8e529557322b38df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "973438656c0bcc859c8eec615ab99c7c24d882d8b3b3ec8ead5a79dc4cde0d7e"
   end
 
   # The bottles are built on systems with the CLT installed, and do not work
@@ -315,50 +323,3 @@ class Gcc < Formula
     assert_equal "Hello, world!\n", shell_output("./hello-m2")
   end
 end
-
-__END__
-diff --git a/gcc/doc/install.texi b/gcc/doc/install.texi
---- a/gcc/doc/install.texi
-+++ b/gcc/doc/install.texi
-@@ -2672,7 +2672,7 @@ additional @option{-fcf-protection} opti
- 
- @item --enable-x86-64-mfentry
- @itemx --disable-x86-64-mfentry
--Enable @option {-mfentry} by default on x86-64 to put the profiling
-+Enable @option{-mfentry} by default on x86-64 to put the profiling
- counter call, @code{__fentry__}, before the prologue so that @option{-pg}
- can be used with @option{-fshrink-wrap} which is enabled at @option{-O1}.
- This configure option is 64-bit only because @code{__fentry__} doesn't
-diff --git a/gcc/fortran/gfortran.texi b/gcc/fortran/gfortran.texi
---- a/gcc/fortran/gfortran.texi
-+++ b/gcc/fortran/gfortran.texi
-@@ -1839,7 +1839,7 @@ in free form; and the @code{c$}, @code{*
- in fixed form, @command{gfortran} needs to be invoked with the
- @option{-fopenmp} option.  This option also arranges for automatic linking
- of the OpenMP runtime library.
--@xref{,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
-+@xref{Top,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
- 
- The OpenMP Fortran runtime library routines are provided both in a
- form of a Fortran 90 module named @code{omp_lib} and in a form of
-@@ -1900,7 +1900,7 @@ sentinels in free form; and the @code{c$
- sentinels in fixed form, @command{gfortran} needs to be invoked with
- the @option{-fopenacc} option.  This option also arranges for automatic
- linking of the OpenACC runtime library.
--@xref{,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
-+@xref{Top,,,libgomp,GNU Offloading and Multi Processing Runtime Library}.
- 
- The OpenACC Fortran runtime library routines are provided both in a
- form of a Fortran 90 module named @code{openacc} and in a form of a
-diff --git a/gcc/fortran/intrinsic.texi b/gcc/fortran/intrinsic.texi
---- a/gcc/fortran/intrinsic.texi
-+++ b/gcc/fortran/intrinsic.texi
-@@ -15546,7 +15546,7 @@ Fortran 2008 and later
- @node UINT
- @section @code{UINT} -- Convert to @code{UNSIGNED} type
- @fnindex UINT
--@cindex, conversion, to unsigned
-+@cindex conversion, to unsigned
- 
- @table @asis
- @item @emph{Synopsis}:
