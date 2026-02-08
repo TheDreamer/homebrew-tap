@@ -185,14 +185,14 @@ class Openjdk < Formula
 end
 
 __END__
----- make/autoconf/flags-ldflags.m4.orig	2025-09-25 16:16:56.000000000 +0000
--+++ make/autoconf/flags-ldflags.m4	2025-11-16 22:58:55.000000000 +0000
--@@ -100,7 +100,7 @@
--   if test "x$OPENJDK_TARGET_OS" = xmacosx && test "x$TOOLCHAIN_TYPE" = xclang; then
--     # FIXME: We should really generalize SET_SHARED_LIBRARY_ORIGIN instead.
--     OS_LDFLAGS_JVM_ONLY="-Wl,-rpath,@loader_path/. -Wl,-rpath,@loader_path/.."
---    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN -Wl,-reproducible"
--+    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN"
--   fi
-- 
--   # Setup debug level-dependent LDFLAGS
+--- make/autoconf/flags-ldflags.m4.orig 2025-12-18 08:04:02.000000000 +0000
++++ make/autoconf/flags-ldflags.m4      2026-02-08 02:45:11.000000000 +0000
+@@ -100,7 +100,7 @@ AC_DEFUN([FLAGS_SETUP_LDFLAGS_HELPER],
+   if test "x$OPENJDK_TARGET_OS" = xmacosx && test "x$TOOLCHAIN_TYPE" = xclang; then
+     # FIXME: We should really generalize SET_SHARED_LIBRARY_ORIGIN instead.
+     OS_LDFLAGS_JVM_ONLY="-Wl,-rpath,@loader_path/. -Wl,-rpath,@loader_path/.."
+-    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN -Wl,-reproducible"
++    OS_LDFLAGS="-mmacosx-version-min=$MACOSX_VERSION_MIN
+   fi
+
+   # Setup debug level-dependent LDFLAGS
