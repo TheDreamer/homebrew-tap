@@ -89,11 +89,11 @@ class Openjdk < Formula
       --with-debug-level=release
       --with-jvm-variants=server
       --with-native-debug-symbols=none
-      --with-vendor-bug-url=#{tap.issues_url}
+      --with-vendor-bug-url="https://github.com/TheDreamer/homebrew-tap/issues"
       --with-vendor-name=#{tap.user}
-      --with-vendor-url=#{tap.issues_url}
+      --with-vendor-url="https://github.com/TheDreamer/homebrew-tap/issues"
       --with-vendor-version-string=#{tap.user}
-      --with-vendor-vm-bug-url=#{tap.issues_url}
+      --with-vendor-vm-bug-url="https://github.com/TheDreamer/homebrew-tap/issues"
       --with-version-build=#{revision}
       --without-version-opt
       --without-version-pre
