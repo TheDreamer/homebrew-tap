@@ -1,8 +1,8 @@
 class Gh < Formula
   desc "GitHub command-line tool"
   homepage "https://cli.github.com/"
-  url "https://github.com/cli/cli/archive/refs/tags/v2.86.0.tar.gz"
-  sha256 "cd2998310e81727af5c2056e9936e6541a20f968d6e3a4891f7fedbc0b336008"
+  url "https://github.com/cli/cli/archive/refs/tags/v2.82.1.tar.gz"
+  sha256 "999bdea5c8baf3d03fe0314127c2c393d6c0f7a504a573ad0c107072973af973"
   license "MIT"
   head "https://github.com/cli/cli.git", branch: "trunk"
 
@@ -14,15 +14,15 @@ class Gh < Formula
   no_autobump! because: :bumped_by_upstream
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "e8489bf47b24c28a5f472ed554063331f3d53e89505cb2fa0e190a4ea929815a"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a4adc3a5daf0704612bafbce5b8c442503a0d26299a531e56261531cb1f5c561"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "26f8743f85faa724745d0617d7945cd9280c2d9339ffca2245b86ee6a2ddaa25"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3296bd6598a05001f45a871f59e6ae4291bea840ed8eb9b8c09b21d4733caf5e"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "4c88ada5a3688e61967525a4b65342639b3ee2952aac1c6851a1665a5428e455"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1f0790d1e33da9cc93291aa664ed2cb97858cf4a32463a25a260daf94b1ac7ae"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9695cb8604ad36f9d8b4c2cda5cefb231337728faebf83224563991c3834999b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9695cb8604ad36f9d8b4c2cda5cefb231337728faebf83224563991c3834999b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9695cb8604ad36f9d8b4c2cda5cefb231337728faebf83224563991c3834999b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f766fe6bd74b16d6cc3e839d6283b86d903b2d73799f4cc8ee4b9a56d35c4898"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bd70bca2a11e036713de28910edc9e3c858d6bf9716bfa6cda1e730be5cf6636"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f7244d94a6b2d25c79605e93652debae4deddec009755194411a698f00a79ecb"
   end
 
-  depends_on "thedreamer/tap/go" => :build
+  depends_on "go" => :build
 
   deny_network_access! [:postinstall, :test]
 
