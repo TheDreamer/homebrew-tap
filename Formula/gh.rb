@@ -22,7 +22,7 @@ class Gh < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "f7244d94a6b2d25c79605e93652debae4deddec009755194411a698f00a79ecb"
   end
 
-  depends_on "go" => :build
+  depends_on "thedreamer/tap/go" => :build
 
   deny_network_access! [:postinstall, :test]
 
