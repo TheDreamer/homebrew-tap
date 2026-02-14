@@ -18,6 +18,8 @@ class Gitbackup < Formula
   depends_on "thedreamer/tap/go" => :build
 
   def install
+    inreplace "go.mod", "go 1.25", "go 1.24"
+
     ENV["CGO_ENABLED"] = "0"
     system "go", "build", *std_go_args
   end
