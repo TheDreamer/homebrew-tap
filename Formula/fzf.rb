@@ -15,7 +15,7 @@ class Fzf < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "0a9596490edf975970a13aa9423d264adba43b94a0e7b0e9d4a08c8bd98c5178"
   end
 
-  depends_on "thedreaer/tap/go" => :build
+  depends_on "thedreamer/tap/go" => :build
 
   uses_from_macos "ncurses"
 
